@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday Pixel Princess</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="intro-active">
+  <div class="sky" aria-hidden="true">
+    <div class="sun"></div>
+    <div class="cloud cloud-a"></div>
+    <div class="cloud cloud-b"></div>
+    <div class="pixel-stars"></div>
+  </div>
+
+  <div class="floating-decor" id="floating-decor" aria-hidden="true"></div>
+
+  <section class="intro-screen" id="intro-screen">
+    <div class="intro-card panel">
+      <p class="badge">SPECIAL DELIVERY</p>
+      <p class="tiny-label">Before you enter</p>
+      <h2>A tiny birthday surprise is waiting...</h2>
+      <p class="intro-copy">
+        Press the button below to open the pink pixel world and start the cute little celebration.
+      </p>
+
+      <div class="intro-actions">
+        <button class="pixel-button" id="enter-site-button" type="button">Open Birthday Surprise</button>
+        <button class="pixel-button ghost" id="intro-magic-button" type="button">Send Some Hearts</button>
+      </div>
+    </div>
+  </section>
+
+  <main class="page-shell">
+    <section class="hero panel reveal">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <p class="badge">HAPPPY BIRTHDAYYYY</p>
+          <p class="tiny-label">Birthday page for</p>
+          <h1>Happy Birthday, <span>dinda</span>!</h1>
+
+          <div class="hero-actions">
+            <button class="pixel-button" id="magic-button" type="button">Start Birthday Magic</button>
+            <a class="pixel-button ghost" href="#letter">Read Love Letter</a>
+          </div>
+
+          <ul class="stats">
+            <li>
+              <span class="stat-label">Level</span>
+              <strong>Birthday Girl 23</strong>
+            </li>
+            <li>
+              <span class="stat-label">Day</span>
+              <strong>[13 / 03 / 2026]</strong>
+            </li>
+            <li>
+              <span class="stat-label">Mood</span>
+              <strong>Pink + Cute + Loved</strong>
+            </li>
+          </ul>
+        </div>
+
+        <div class="hero-card pixel-window">
+          <div class="window-bar">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div class="avatar-box">
+            <div class="pixel-avatar">
+              <img
+                src="1.jpeg"
+                alt="Main birthday photo"
+              >
+              <div class="avatar-sparkles" aria-hidden="true"></div>
+              <div class="avatar-heart"></div>
+            </div>
+            <div class="now-playing">
+              <p>NOW PLAYING</p>
+              <div class="music-player" id="music-player">
+                <audio id="birthday-audio" preload="metadata">
+                <source src="song.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+                </audio>
+
+                <div class="player-controls">
+                  <button class="pixel-button player-toggle" id="player-toggle" type="button" aria-label="Play song">
+                    Play
+                  </button>
+
+                  <div class="player-meta">
+                    <div class="player-time">
+                      <span id="current-time">0:00</span>
+                      <span>/</span>
+                      <span id="duration">0:00</span>
+                    </div>
+
+                    <label class="progress-shell" for="player-progress" aria-label="Song progress">
+                      <span class="progress-track">
+                        <span class="progress-fill" id="progress-fill"></span>
+                      </span>
+                      <input id="player-progress" type="range" min="0" max="100" value="0" step="0.1">
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel message reveal" id="letter">
+      <div class="section-heading">
+        <p class="tiny-label">Message Box</p>
+        <h2>Letter to My Favorite Person</h2>
+      </div>
+
+      <div class="message-card">
+        <p>
+Buat sayangku dindaa, happyy birthday yang ke 23 tahun cantiku, sayangku, gemaskuuu. semogaa di umurr 23 ini kamu makinnn cantikkkk, makinnn lucuuuu, makinn kerennn, makinnnn baikk. Sayangkuu, kamuu kan udah 23 tahunnn udah dewasaa bgt bgt bgt, semogaa diumur ini kamu bisaa lebihh dewasa berpikirnya, enggaa berpikir buruk ke orang, harus bisa stay positive yaa sayangkuuu. Aku tau kamu tuh baikkk banget, tapi kadang suka euggghhhh gituuu wkwwwkww. oiyaaa semogaa di umur sekarang inii kamu sehattt. oiyaa jangann lupaa jugaa di umur inii banyak banyak doa buat aku biar dipermudahh nikahin kamu eaeaeaea, Yanggg aku tuh sayang sayang sama kamuuu tauu reallll, ini mah gaboong, aku sangat sangat bersyukur kalau kamu itu pacar aku, sahabat aku, orang paling paling deket aku. aku kalau lagi ngelamun suka tuh kaya mikirr, gimana kalau aku dlu ga nembak kamu, ga deket kamu, keknya hidup aku bakalan bosan, dan aku gapunya tujuan pengen apa ini apa itu. oiyaa makasihhh jugaaa di umur 22 kemarinn kamu masihhh samaa akuuu, masih percayain aku meskipun aku banyak salahh ke kamu, aku kurang sebagai cowo kamuu. Oiyaa semogaaa diumur 23 ini kamu makinnn suksessss makin bersinarrr, jangan terlalu terbebani sama pencapaian orang lain, fokus ke kamu sendiri, aku yakin kamu mah hebatt bangettttt, oiya lupa, semogaa kamu makin sholehahhh ibadahnya makin bagusss, diumur 23 ini yanggg, aku bakalan selalu ada disamping kamu, kamu mau sedih, cerita, seneng, apapunnn yang kamu pikirin, please bilang ajaa anythinggg, sekecil kaya misal "kenapa nike logo centar kenapa ga x misalnya", pokonyaa segala hal yg kebesat dikepala kamu mau jelek buruk jangan gengsi ya, kamu kaya rasain apa atau merasa apaa. Sekali lagii selamat menempuhh umur ke 23 ya sayangkuuuu, lop lop        </p>
+        <p>
+
+        </p>
+        <p class="signature">Love, Ayy</p>
+      </div>
+    </section>
+
+    <section class="panel reveal">
+      <div class="section-heading">
+        <p class="tiny-label">Gallery Preview</p>
+        <h2>Foto dari Orang Tercantik, Terlucu, dan Tergemaskan</h2>
+      </div>
+
+      <div class="gallery-grid">
+        <div class="gallery-card">
+          <img
+            src="2.jpeg"
+            alt="Dummy gallery placeholder 1"
+          >
+          <p>Replace this `src` with your first real photo.</p>
+        </div>
+        <div class="gallery-card">
+          <img
+            src="3.jpeg"
+            alt="Dummy gallery placeholder 2"
+          >
+          <p>Replace this `src` with your second real photo.</p>
+        </div>
+        <div class="gallery-card">
+          <img
+            src="4.jpeg"
+            alt="Dummy gallery placeholder 3"
+          >
+          <p>Replace this `src` with your third real photo.</p>
+        </div>
+        <div class="gallery-card">
+          <img
+            src="5.jpeg"
+            alt="Dummy gallery placeholder 4"
+          >
+          <p>Replace this `src` with your fourth real photo.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel wish-panel reveal">
+      <div class="section-heading">
+        <p class="tiny-label">Bonus Area</p>
+        <h2>Birthday Wish Machine</h2>
+      </div>
+
+      <div class="wish-box">
+        <p id="wish-text">
+          Click the button to cycle through cute placeholder wishes, then replace
+          them with your own.
+        </p>
+        <button class="pixel-button" id="wish-button" type="button">Next Wish</button>
+      </div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    Extra sparkles unlocked!
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
