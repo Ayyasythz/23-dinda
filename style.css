@@ -219,6 +219,8 @@ body.intro-active .page-shell {
   color: var(--white);
   border: 3px solid var(--shadow);
   box-shadow: 4px 4px 0 0 var(--shadow);
+  animation: badge-bounce 1.8s cubic-bezier(.36,.07,.19,.97) infinite;
+  background-size: 200% auto;
 }
 
 .hero-grid {
@@ -241,9 +243,14 @@ h1 {
   margin-bottom: 16px;
 }
 
-h1 span,
-h2 {
-  color: var(--accent-dark);
+h1 span {
+  display: inline-block;
+  background: linear-gradient(90deg, #ff69b4, #ffde8b, #ff99cc, #d84c97, #ff69b4);
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: name-shimmer 3s linear infinite;
 }
 
 .lead {
@@ -257,6 +264,67 @@ h2 {
   flex-wrap: wrap;
   gap: 12px;
 }
+
+/* kiss button variant */
+.pixel-button.kiss-btn {
+  background: #ff4d8d;
+}
+.pixel-button.kiss-btn:hover { background: #e0316f; }
+
+/* love meter */
+.love-meter-wrap {
+  margin-top: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.love-meter-wrap .stat-label { margin-bottom: 0; }
+
+.love-meter {
+  position: relative;
+  flex: 1 1 140px;
+  height: 22px;
+  background: var(--white);
+  border: 3px solid var(--shadow);
+  box-shadow: 3px 3px 0 0 var(--shadow);
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.love-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #ff69b4, #ffde8b, #ff99cc);
+  background-size: 200% auto;
+  animation: name-shimmer 2s linear infinite;
+  transition: width 0.4s cubic-bezier(.22,1,.36,1);
+}
+
+.love-count {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--ink);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+.love-tap {
+  background: none;
+  border: none;
+  font-size: 1.6rem;
+  cursor: pointer;
+  animation: love-tap-pulse 1.2s ease-in-out infinite;
+  padding: 0;
+  line-height: 1;
+  transition: transform 0.1s;
+}
+.love-tap:active { transform: scale(0.8); }
 
 .pixel-button {
   display: inline-flex;
@@ -295,6 +363,17 @@ h2 {
   list-style: none;
 }
 
+.stats li {
+  padding: 12px 10px;
+  text-align: center;
+}
+
+.stats li strong {
+  display: block;
+  font-size: 0.82rem;
+  margin-top: 4px;
+}
+
 .stats li,
 .memory-card,
 .gallery-card,
@@ -303,10 +382,6 @@ h2 {
   background: var(--white);
   border: 3px solid var(--shadow);
   box-shadow: 4px 4px 0 0 rgba(127, 71, 111, 0.75);
-}
-
-.stats li {
-  padding: 14px;
 }
 
 .stat-label,
@@ -612,24 +687,47 @@ h2 {
   background:
     linear-gradient(45deg, #ffd3eb 25%, #ffeaf6 25% 50%, #ffd3eb 50% 75%, #ffeaf6 75%);
   background-size: 24px 24px;
-  /* staggered entrance */
+  /* entrance */
   opacity: 0;
-  transform: translateY(40px);
-  animation: gallery-enter 0.7s cubic-bezier(.22,1,.36,1) forwards;
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  transform: perspective(600px) rotateY(60deg) translateY(50px) scale(0.8);
+  animation: gallery-flip-in 0.85s cubic-bezier(.22,1,.36,1) forwards;
+  /* 3D tilt base */
+  transform-style: preserve-3d;
+  will-change: transform;
+  /* idle pulse glow */
+  box-shadow: 0 0 0 0 rgba(255,105,180,0);
+  animation: gallery-flip-in 0.85s cubic-bezier(.22,1,.36,1) forwards,
+             gallery-idle-glow 3s ease-in-out 1.5s infinite;
+  transition: box-shadow 0.3s ease;
 }
 
 /* stagger each card */
-.gallery-card:nth-child(1) { animation-delay: 0.1s; }
-.gallery-card:nth-child(2) { animation-delay: 0.25s; }
-.gallery-card:nth-child(3) { animation-delay: 0.4s; }
-.gallery-card:nth-child(4) { animation-delay: 0.55s; }
+.gallery-card:nth-child(1) { animation-delay: 0.05s, 1.6s; }
+.gallery-card:nth-child(2) { animation-delay: 0.22s, 1.8s; }
+.gallery-card:nth-child(3) { animation-delay: 0.39s, 2.0s; }
+.gallery-card:nth-child(4) { animation-delay: 0.56s, 2.2s; }
 
-/* hover: lift + pink shadow glow */
-.gallery-card:hover {
-  transform: translateY(-8px) scale(1.03);
-  box-shadow: 0 14px 36px rgba(255, 105, 180, 0.45);
-  z-index: 2;
+/* spinning conic border wrapper on hover */
+.gallery-card::before {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  z-index: -1;
+  background: conic-gradient(
+    from var(--angle, 0deg),
+    #ff69b4, #ffde8b, #ff99cc, #c084fc, #ff69b4
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  animation: card-border-spin 2.5s linear infinite;
+  filter: blur(1px);
+}
+.gallery-card:hover::before { opacity: 1; }
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
 }
 
 .gallery-card img {
@@ -638,44 +736,65 @@ h2 {
   object-fit: cover;
   display: block;
   border: 3px solid var(--shadow);
-  margin-bottom: 12px;
+  margin-bottom: 0;
   image-rendering: auto;
-  /* slow Ken Burns zoom */
+  /* Ken Burns — each card gets a different speed */
   animation: ken-burns 9s ease-in-out infinite alternate;
   transform-origin: center center;
-  transition: filter 0.35s ease;
+  transition: filter 0.4s ease, transform 0.4s ease;
+  flex: 1;
 }
+
+.gallery-card:nth-child(2) img { animation-duration: 11s; }
+.gallery-card:nth-child(3) img { animation-duration: 8s; }
+.gallery-card:nth-child(4) img { animation-duration: 13s; }
 
 .gallery-card:hover img {
-  filter: saturate(1.25) brightness(1.06) contrast(1.04);
+  filter: saturate(1.3) brightness(1.08) contrast(1.05);
 }
 
-/* shimmer overlay on each gallery card */
+/* caption hidden behind bottom, slides up on hover */
+.gallery-card p {
+  margin: 0;
+  line-height: 1.5;
+  font-size: 0.72rem;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 10px 10px 8px;
+  background: linear-gradient(0deg, rgba(255,182,217,0.95) 0%, rgba(255,230,245,0.85) 100%);
+  border-top: 2px solid var(--shadow);
+  transform: translateY(100%);
+  transition: transform 0.35s cubic-bezier(.22,1,.36,1);
+  z-index: 5;
+}
+
+.gallery-card:hover p {
+  transform: translateY(0);
+}
+
+/* shimmer overlay — always animating, revealed on hover */
 .gallery-card::after {
   content: "";
   position: absolute;
   inset: 0;
-  z-index: 3;
+  z-index: 4;
   background: linear-gradient(
     115deg,
-    transparent 30%,
-    rgba(255, 255, 255, 0.4) 50%,
-    transparent 70%
+    transparent 25%,
+    rgba(255, 255, 255, 0.5) 50%,
+    transparent 75%
   );
-  background-size: 250% 100%;
+  background-size: 300% 100%;
   opacity: 0;
-  transition: opacity 0.2s;
+  transition: opacity 0.25s;
   pointer-events: none;
-  animation: shimmer 2.8s ease-in-out infinite;
+  animation: shimmer 2.2s ease-in-out infinite;
 }
 
 .gallery-card:hover::after {
   opacity: 1;
-}
-
-.gallery-card p {
-  margin: 0;
-  line-height: 1.6;
 }
 
 .wish-panel .wish-box {
@@ -817,18 +936,43 @@ h2 {
   }
 }
 
-@keyframes gallery-enter {
+@keyframes badge-bounce {
+  0%, 100% { transform: translateY(0) rotate(-1deg); }
+  30%       { transform: translateY(-6px) rotate(1deg); }
+  60%       { transform: translateY(-3px) rotate(-0.5deg); }
+}
+
+@keyframes name-shimmer {
+  0%   { background-position: 0% center; }
+  100% { background-position: 300% center; }
+}
+
+@keyframes love-tap-pulse {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.25); }
+}
+
+@keyframes gallery-flip-in {
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: perspective(600px) rotateY(0deg) translateY(0) scale(1);
   }
+}
+
+@keyframes gallery-idle-glow {
+  0%, 100% { box-shadow: 0 0 8px 0 rgba(255,105,180,0.2); }
+  50%       { box-shadow: 0 0 24px 6px rgba(255,105,180,0.5); }
+}
+
+@keyframes card-border-spin {
+  to { --angle: 360deg; }
 }
 
 @keyframes ken-burns {
   0%   { transform: scale(1)    translate(0,    0);    }
-  33%  { transform: scale(1.06) translate(-1%, -1%);   }
-  66%  { transform: scale(1.04) translate(1%,  0.5%);  }
-  100% { transform: scale(1.07) translate(-0.5%, 1%);  }
+  33%  { transform: scale(1.07) translate(-1.5%, -1%); }
+  66%  { transform: scale(1.05) translate(1.5%,  0.8%);}
+  100% { transform: scale(1.08) translate(-0.5%, 1.2%);}
 }
 
 @keyframes avatar-float {
@@ -848,14 +992,6 @@ h2 {
 
 @keyframes sparkle-dots {
   50% { opacity: 0.3; }
-}
-
-@keyframes ken-burns {
-  0%   { transform: scale(1)    translateX(0)    translateY(0); }
-  25%  { transform: scale(1.06) translateX(-2%)  translateY(-1%); }
-  50%  { transform: scale(1.1)  translateX(2%)   translateY(-2%); }
-  75%  { transform: scale(1.06) translateX(-1%)  translateY(1%); }
-  100% { transform: scale(1)    translateX(0)    translateY(0); }
 }
 
 @media (max-width: 900px) {
